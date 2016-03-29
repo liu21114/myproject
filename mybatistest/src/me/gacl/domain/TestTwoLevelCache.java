@@ -25,5 +25,6 @@ public class TestTwoLevelCache extends MyObject{
 	        user = session2.selectOne(statement, 1);
 	        //session2.commit();
 	        mout.println("user2="+user);
+	        mout.println("user2="+user);
 	    }
 }
