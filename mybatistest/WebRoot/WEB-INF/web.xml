@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <servlet>
+  <description>This is the description of my J2EE component</description>
+  <display-name>This is the display name of my J2EE component</display-name>
+  <servlet-name>mytest</servlet-name>
+  <servlet-class>mytest</servlet-class>
+  <load-on-startup>1</load-on-startup>
+ </servlet>
+ <servlet>
+  <description>This is the description of my J2EE component</description>
+  <display-name>This is the display name of my J2EE component</display-name>
+  <servlet-name>JSONServlet</servlet-name>
+  <servlet-class>JSONServlet</servlet-class>
+ </servlet>
+  <servlet>
+    <servlet-name>myjson</servlet-name>
+    <servlet-class>myjson</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SessionTrack</servlet-name>
+    <servlet-class>SessionTrack</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>UploadServlet</servlet-name>
+    <servlet-class>UploadServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>PageRedirect</servlet-name>
+    <servlet-class>PageRedirect</servlet-class>
+  </servlet>
+
+<context-param> 
+    <description>Location to store uploaded file</description> 
+    <param-name>file-upload</param-name> 
+    <param-value>
+        C:\Program Files (x86)\Apache Software Foundation\Tomcat 7.0\webapps\service\WEB-INF\data\
+     </param-value> 
+</context-param>
+
+
+ <servlet-mapping>
+  <servlet-name>mytest</servlet-name>
+  <url-pattern>/servlet/mytest</url-pattern>
+ </servlet-mapping>
+ <servlet-mapping>
+  <servlet-name>JSONServlet</servlet-name>
+  <url-pattern>/servlet/json</url-pattern>
+ </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>myjson</servlet-name>
+    <url-pattern>/servlet/myjson</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SessionTrack</servlet-name>
+    <url-pattern>/servlet/SessionTrack</url-pattern>
+    <!-- http://localhost:8087/service/servlet/SessionTrack -->
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UploadServlet</servlet-name>
+    <url-pattern>/servlet/UploadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PageRedirect</servlet-name>
+    <url-pattern>/servlet/PageRedirect</url-pattern>
+  </servlet-mapping>
+ <welcome-file-list>
+  <welcome-file>index.jsp</welcome-file>
+ </welcome-file-list>
+ 
+ <login-config>
+  <auth-method>BASIC</auth-method>
+ </login-config>
+</web-app>

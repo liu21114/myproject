@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 为这个mapper指定一个唯一的namespace，namespace的值习惯上设置成包名+sql映射文件名，这样就能够保证namespace的值是唯一的
+例如namespace="me.gacl.mapping.userMapper"就是me.gacl.mapping(包名)+userMapper(userMapper.xml文件去除后缀)
+ -->
+<mapper namespace="me.gacl.mapping.userMapper">
+    <!-- 在select标签中编写查询的SQL语句， 设置select标签的id属性为getUser，id属性值必须是唯一的，不能够重复
+    使用parameterType属性指明查询时使用的参数类型，resultType属性指明查询返回的结果集类型
+    resultType="me.gacl.domain.User"就表示将查询结果封装成一个User类的对象返回
+    User类就是users表所对应的实体类
+    -->
+    <!-- 
+        根据id查询得到一个user对象
+     -->
+     <!--回收策略为先进先出--> <!--自动刷新时间60s--> <!--最多缓存512个引用对象--><!--只读-->
+     <cache eviction="FIFO"  
+      flushInterval="60000"
+		size="512"
+		readOnly="true"/> 
+    <select id="getUser" parameterType="int" 
+        resultType="me.gacl.domain.User">
+        select * from users where id=#{id}
+    </select>
+     <!-- 删除用户(Remove) -->
+    <delete id="deleteUser" parameterType="int">
+        delete from users where id=#{id}
+    </delete>
+    <insert id="addUser2" parameterType="_User">
+       insert into users(name,age) values(#{name},#{age})
+    </insert>
+    <!-- 修改用户(Update) -->
+    <update id="updateUser" parameterType="me.gacl.domain.User">
+        update users set name=#{name},age=#{age} where id=#{id}
+    </update>
+    
+    <!-- 查询全部用户-->
+    <select id="getAllUsers" resultType="me.gacl.domain.User">
+        select * from users
+    </select>
+    
+    <!-- 
+        查询得到男性或女性的数量, 如果传入的是0就女性否则是男性
+     -->
+    <select id="getUserCount" parameterMap="getUserCountMap" statementType="CALLABLE">
+        CALL mybatis.ges_user_count(?,?)
+    </select>
+    
+    <!--
+        parameterMap.put("sexid", 0);
+        parameterMap.put("usercount", -1);
+     -->
+    <parameterMap type="java.util.Map" id="getUserCountMap">
+        <parameter property="sexid" mode="IN" jdbcType="INTEGER"/>
+        <parameter property="usercount" mode="OUT" jdbcType="INTEGER"/>
+    </parameterMap>
+</mapper>
